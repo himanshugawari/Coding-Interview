@@ -10,7 +10,8 @@ public class Main {
     Team<FootballPlayer> footballTeam3 = new Team<>("FootballTeam3");
     Team<FootballPlayer> footballTeam = new Team<>("FootballTeam");
 
-    Team<BaseballPlayer> baseballTeam = new Team<>("BaseballTeam");
+    @SuppressWarnings("unused")
+	Team<BaseballPlayer> baseballTeam = new Team<>("BaseballTeam");
 
     footballLeague.add(footballTeam1);
     footballLeague.add(footballTeam2);
