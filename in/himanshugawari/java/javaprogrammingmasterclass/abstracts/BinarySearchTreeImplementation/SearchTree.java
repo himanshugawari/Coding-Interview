@@ -1,10 +1,10 @@
-package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.SearchTreeImplementation;
+package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.BinarySearchTreeImplementation;
 
-public class MyLinkedList implements NodeList {
+public class SearchTree implements NodeList {
 
 	private ListItem root = null;
 
-	public MyLinkedList(ListItem root) {
+	public SearchTree(ListItem root) {
 		super();
 		this.root = root;
 	}

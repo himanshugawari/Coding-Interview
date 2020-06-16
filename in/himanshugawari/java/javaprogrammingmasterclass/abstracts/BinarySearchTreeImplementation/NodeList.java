@@ -1,4 +1,4 @@
-package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.SearchTreeImplementation;
+package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.BinarySearchTreeImplementation;
 
 public interface NodeList {
 	

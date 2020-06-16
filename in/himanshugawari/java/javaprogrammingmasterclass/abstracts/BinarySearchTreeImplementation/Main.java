@@ -1,11 +1,11 @@
-package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.SearchTreeImplementation;
+package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.BinarySearchTreeImplementation;
 
 // Linked Link Implementation insertion in ascending order
 
 public class Main {
 	public static void main(String[] args) {
 
-		MyLinkedList list = new MyLinkedList(null);
+		SearchTree list = new SearchTree(null);
 		list.traverse(list.getRoot());
 
 		// String stringData = "Darwin Brisbane Perth Melbourne Canberra Adalaide Sydney
