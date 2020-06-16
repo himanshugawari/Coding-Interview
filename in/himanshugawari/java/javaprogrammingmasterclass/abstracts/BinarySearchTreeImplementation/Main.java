@@ -5,8 +5,8 @@ package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.BinarySearch
 public class Main {
 	public static void main(String[] args) {
 
-		SearchTree list = new SearchTree(null);
-		list.traverse(list.getRoot());
+		SearchTree tree = new SearchTree(null);
+		tree.traverse(tree.getRoot());
 
 		// String stringData = "Darwin Brisbane Perth Melbourne Canberra Adalaide Sydney
 		// Canberra";
@@ -14,46 +14,68 @@ public class Main {
 
 		String[] data = stringData.split(" ");
 		for (String s : data) {
-			list.addItem(new Node(s));
-			list.traverse(list.getRoot());
+			tree.addItem(new Node(s));
 		}
 
-		//list.traverse(list.getRoot());
+		// tree.traverse(tree.getRoot());
 
-		list.removeItem(new Node("3"));
-		list.traverse(list.getRoot());
+		tree.traverse(tree.getRoot());
+		System.out.println();
 
-		list.removeItem(new Node("5"));
-		list.traverse(list.getRoot());
+		tree.removeItem(new Node("3"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
 
-		list.removeItem(new Node("0"));
-		list.removeItem(new Node("4"));
-		list.removeItem(new Node("2"));
-		list.traverse(list.getRoot());
 
-		list.removeItem(new Node("9"));
-		list.traverse(list.getRoot());
+		tree.removeItem(new Node("5"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
 
-		list.removeItem(new Node("8"));
-		list.traverse(list.getRoot());
 
-		list.removeItem(new Node("6"));
-		list.traverse(list.getRoot());
+		tree.removeItem(new Node("0"));
+		tree.removeItem(new Node("4"));
+		tree.removeItem(new Node("2"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
 
-		/*
-		 * list.removeItem(list.getRoot()); list.traverse(list.getRoot());
-		 * 
-		 * list.removeItem(list.getRoot()); list.traverse(list.getRoot());
-		 */
 
-		list.addItem(new Node("5"));
-		list.traverse(list.getRoot());
+		tree.removeItem(new Node("9"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
 
-		list.addItem(new Node("5"));
-		list.traverse(list.getRoot());
 
-		list.addItem(new Node("9"));
-		list.traverse(list.getRoot());
+		tree.removeItem(new Node("8"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.removeItem(new Node("6"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.removeItem(tree.getRoot());
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.removeItem(tree.getRoot());
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.addItem(new Node("5"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.addItem(new Node("5"));
+		tree.traverse(tree.getRoot());
+		System.out.println();
+
+
+		tree.addItem(new Node("9"));
+		tree.traverse(tree.getRoot());
 
 	}
 }
