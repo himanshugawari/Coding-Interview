@@ -1,7 +1,6 @@
 package in.himanshugawari.java.javaprogrammingmasterclass.abstracts.challange;
 
 public class Node extends ListItem {
-
 	public Node(Object value) {
 		super(value);
 	}
