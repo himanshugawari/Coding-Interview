@@ -17,11 +17,12 @@ public class SearchTree implements NodeList {
 	@Override
 	public boolean addItem(ListItem item) {
 		if (this.root == null) {
-			// list is empty so this items becomes root
-			System.out.println("Inserting item " + item.getValue());
+			// tree is empty so this items becomes root
 			this.root = item;
 			return true;
 		}
+
+		// otherwise start comparing from the head of the tree
 		ListItem currItem = this.root;
 		while (currItem != null) {
 			int comparison = currItem.compareTo(item);
@@ -30,41 +31,21 @@ public class SearchTree implements NodeList {
 				if (currItem.next() != null) {
 					currItem = currItem.next();
 				} else {
-					// there is no next, so insert at the end of the list
-					/*
-					 * currItem.setNext(item); item.setPrevious(currItem);
-					 */
-					// same as above commented code in one line
-					currItem.setNext(item).setPrevious(currItem);
-					System.out.println("Inserting item " + item.getValue());
+					// there is no node at right, so add at this point
+					currItem.setNext(item);
 					return true;
 				}
 			} else if (comparison > 0) {
-				// item is less, insert before
+				// item is less, move left if possible
 				if (currItem.previous() != null) {
-					/*
-					 * currItem.previous().setNext(item); item.setPrevious(currItem.previous());
-					 * item.setNext(currItem); currItem.setPrevious(item);
-					 */
-					/*
-					 * currItem.previous().setNext(item).setPrevious(currItem.previous());
-					 * item.setNext(currItem).setPrevious(item);
-					 */
-					currItem.previous().setNext(item).setPrevious(currItem.previous());
-					item.setNext(currItem).setPrevious(item);
-					System.out.println("Inserting item " + item.getValue());
+					currItem = currItem.previous();
 				} else {
-					// the node without a previous is root
-					/*
-					 * item.setNext(this.root); this.root.setPrevious(item);
-					 */
-					item.setNext(this.root).setPrevious(item);
-					System.out.println("Inserting item " + item.getValue());
-					this.root = item;
+					// there is no node to the left so add at this point
+					currItem.setPrevious(item);
+					return true;
 				}
-				return true;
 			} else {
-				// equal
+				// equal so do not add
 				System.out.println(item.getValue() + " is already present, not added");
 				return false;
 			}
@@ -78,42 +59,82 @@ public class SearchTree implements NodeList {
 			System.out.println("Deleting item " + item.getValue());
 		}
 		ListItem currItem = this.root;
+		ListItem parentItem = currItem;
 		while (currItem != null) {
 			int comparision = currItem.compareTo(item);
-			if (comparision == 0) {
-				// found the item to delete
-				if (currItem == this.root) {
-					this.root = currItem.next();
-				} else {
-					currItem.previous().setNext(currItem.next());
-					if (currItem.next() != null) {
-						currItem.next().setPrevious(currItem.previous());
-					}
-				}
-				return true;
-			} else if (comparision < 0) {
+			if (comparision < 0) {
+				parentItem = currItem;
 				currItem = currItem.next();
+			} else if (comparision > 0) {
+				parentItem = currItem;
+				currItem = currItem.previous();
 			} else {
-				// comparision > 0
-				// we are at an item greater than the one to be deleted
-				// so the item is not int the list
-				return false;
+				// equal, we have found the item so remove it
+				performRemoval(currItem, parentItem);
+				return true;
 			}
 		}
-		// we have reached the end of the list
-		// without finding the item to delete
 		return false;
+	}
+
+	private void performRemoval(ListItem item, ListItem parent) {
+		// remove item from the tree
+		if (item.next() == null) {
+			// no right tree, so make parent point to left tree (which may be null)
+			if (parent.next() == item) {
+				// item is right child of its parent
+				parent.setNext(item.previous());
+			} else if (parent.previous() == item) {
+				// item is left child of its parent
+				parent.setPrevious(item.previous());
+			} else {
+				// parent must be item, which means we were looking at the root of the tree
+				this.root = item.previous();
+			}
+		} else if (item.previous() == null) {
+			// no left tree, so make parent point to right tree (which may be null)
+			if (parent.next() == item) {
+				// item is right child of its parent
+				parent.setNext(item.next());
+			} else if (parent.previous() == item) {
+				// item is left child of its parent
+				parent.setPrevious(item.next());
+			} else {
+				// again, we are deleting the root
+				this.root = item.next();
+			}
+		} else {
+			// neither left nor right are null, deletion is now a lot trickier!
+			// From the right sub-tree, find the smallest value (i.e., the leftmost).
+			ListItem current = item.next();
+			ListItem leftmostParent = item;
+			while (current.previous() != null) {
+				leftmostParent = current;
+				current = current.previous();
+			}
+			// Now put the smallest value into our node to be deleted
+			item.setValue(current.getValue());
+			// and delete the smallest
+			if (leftmostParent == item) {
+				// there was no leftmost node, so 'current' points to the smallest
+				// node (the one that must now be deleted).
+				item.setNext(current.next());
+			} else {
+				// set the smallest node's parent to point to
+				// the smallest node's right child (which may be null).
+				leftmostParent.setPrevious(current.next());
+			}
+		}
 	}
 
 	@Override
 	public void traverse(ListItem item) {
-		if (item == null) {
-			System.out.println("The list is empty");
+		if (item != null) {
+			traverse(item.previous());
+			System.out.println(item.getValue());
+			traverse(item.next());
 		} else {
-			while (item != null) {
-				System.out.println(item.getValue());
-				item = item.next();
-			}
+			// System.out.println("Empty Tree");
 		}
 	}
 
