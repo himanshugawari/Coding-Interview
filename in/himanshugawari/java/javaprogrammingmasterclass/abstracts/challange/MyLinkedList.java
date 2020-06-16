@@ -18,6 +18,7 @@ public class MyLinkedList implements NodeList {
 	public boolean addItem(ListItem item) {
 		if (this.root == null) {
 			// list is empty so this items becomes root
+			System.out.println("Inserting item " + item.getValue());
 			this.root = item;
 			return true;
 		}
@@ -30,21 +31,35 @@ public class MyLinkedList implements NodeList {
 					currItem = currItem.next();
 				} else {
 					// there is no next, so insert at the end of the list
-					currItem.setNext(item);
-					item.setPrevious(currItem);
+					/*
+					 * currItem.setNext(item); item.setPrevious(currItem);
+					 */
+					// same as above commented code in one line
+					currItem.setNext(item).setPrevious(currItem);
+					System.out.println("Inserting item " + item.getValue());
+					return true;
 				}
-				return true;
 			} else if (comparison > 0) {
 				// item is less, insert before
 				if (currItem.previous() != null) {
-					currItem.previous().setNext(item);
-					item.setPrevious(currItem.previous());
-					item.setNext(currItem);
-					currItem.setPrevious(item);
+					/*
+					 * currItem.previous().setNext(item); item.setPrevious(currItem.previous());
+					 * item.setNext(currItem); currItem.setPrevious(item);
+					 */
+					/*
+					 * currItem.previous().setNext(item).setPrevious(currItem.previous());
+					 * item.setNext(currItem).setPrevious(item);
+					 */
+					currItem.previous().setNext(item).setPrevious(currItem.previous());
+					item.setNext(currItem).setPrevious(item);
+					System.out.println("Inserting item " + item.getValue());
 				} else {
 					// the node without a previous is root
-					item.setNext(this.root);
-					this.root.setPrevious(item);
+					/*
+					 * item.setNext(this.root); this.root.setPrevious(item);
+					 */
+					item.setNext(this.root).setPrevious(item);
+					System.out.println("Inserting item " + item.getValue());
 					this.root = item;
 				}
 				return true;
@@ -59,14 +74,47 @@ public class MyLinkedList implements NodeList {
 
 	@Override
 	public boolean removeItem(ListItem item) {
-		// TODO Auto-generated method stub
+		if (item != null) {
+			System.out.println("Deleting item " + item.getValue());
+		}
+		ListItem currItem = this.root;
+		while (currItem != null) {
+			int comparision = currItem.compareTo(item);
+			if (comparision == 0) {
+				// found the item to delete
+				if (currItem == this.root) {
+					this.root = currItem.next();
+				} else {
+					currItem.previous().setNext(currItem.next());
+					if (currItem.next() != null) {
+						currItem.next().setPrevious(currItem.previous());
+					}
+				}
+				return true;
+			} else if (comparision < 0) {
+				currItem = currItem.next();
+			} else {
+				// comparision > 0
+				// we are at an item greater than the one to be deleted
+				// so the item is not int the list
+				return false;
+			}
+		}
+		// we have reached the end of the list
+		// without finding the item to delete
 		return false;
 	}
 
 	@Override
-	public void traverse(ListItem root) {
-		// TODO Auto-generated method stub
-
+	public void traverse(ListItem item) {
+		if (item == null) {
+			System.out.println("The list is empty");
+		} else {
+			while (item != null) {
+				System.out.println(item.getValue());
+				item = item.next();
+			}
+		}
 	}
 
 }
