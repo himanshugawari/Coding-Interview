@@ -33,6 +33,29 @@ public class DepthFirstSearch {
 		dfsRec(adj, s, visited);
 	}
 
+	// for disconnected graph
+	public static void dfs1(ArrayList<ArrayList<Integer>> adj, int v) {
+		boolean[] visited = new boolean[v];
+		for (int i = 0; i < v; i++) {
+			if (visited[i] == false) {
+				dfsRec(adj, i, visited);
+			}
+		}
+	}
+
+	// count components in graph
+	public static int dfsDisconnected(ArrayList<ArrayList<Integer>> adj, int v) {
+		int count = 0;
+		boolean[] visited = new boolean[v];
+		for (int i = 0; i < v; i++) {
+			if (visited[i] == false) {
+				dfsRec(adj, i, visited);
+				count++;
+			}
+		}
+		return count;
+	}
+
 	public static void main(String[] args) {
 		int v = 5;
 		ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>(v);
@@ -51,6 +74,29 @@ public class DepthFirstSearch {
 		System.out.println();
 
 		dfs(adj, v, 0);
+		System.out.println();
+
+		v = 7;
+		ArrayList<ArrayList<Integer>> adj1 = new ArrayList<ArrayList<Integer>>(v);
+		for (int i = 0; i < v; i++) {
+			adj1.add(new ArrayList<Integer>());
+		}
+		addEdge(adj1, 0, 1);
+		addEdge(adj1, 0, 2);
+		addEdge(adj1, 1, 3);
+		addEdge(adj1, 2, 3);
+		addEdge(adj1, 4, 5);
+		addEdge(adj1, 4, 6);
+		addEdge(adj1, 5, 6);
+		System.out.println();
+
+		printGraph(adj1);
+		System.out.println();
+
+		dfs1(adj1, v);
+		System.out.println("\n");
+
+		System.out.println("\n" + dfsDisconnected(adj1, v));
 		System.out.println();
 
 	}
