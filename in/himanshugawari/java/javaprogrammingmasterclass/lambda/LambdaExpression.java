@@ -131,6 +131,21 @@ public class LambdaExpression {
 		};
 		String sillyString1 = doStringStuff(uc, employees.get(0).getName(), employees.get(1).getName());
 		System.out.println(sillyString1);
+		System.out.println();
+
+		System.out.println("--------AnotherClass example--------");
+		AnotherClass anotherClass = new AnotherClass();
+		String s = anotherClass.doSomething();
+		System.out.println(s);
+		System.out.println();
+
+		String s1 = anotherClass.doSomethingLambda();
+		System.out.println(s1);
+		System.out.println();
+		
+		String s2=anotherClass.doSomethingold();
+		System.out.println(s2);
+		System.out.println();
 	}
 
 	public final static String doStringStuff(UpperConcat uc, String s1, String s2) {
@@ -188,4 +203,50 @@ class Employee {
 
 interface UpperConcat {
 	String upperAndConcat(String s1, String s2);
+}
+
+class AnotherClass {
+
+	// General
+	public String doSomething() {
+		System.out.println("The AnotherClass class's name is : " + getClass().getSimpleName());
+		return LambdaExpression.doStringStuff(new UpperConcat() {
+
+			@Override
+			public String upperAndConcat(String s1, String s2) {
+				System.out.println("The anonymous class's name is : " + getClass().getSimpleName());
+				return s1.toUpperCase() + s2.toUpperCase();
+			}
+		}, "String1", "String2");
+	}
+
+	// Lambda
+	public String doSomethingLambda() {
+		UpperConcat uc = (s1, s2) -> {
+			System.out.println("The lambda class's name is : " + getClass().getSimpleName());
+			String result = s1.toUpperCase() + s2.toUpperCase();
+			return result;
+		};
+		System.out.println("The AnotherClass class's name is : " + getClass().getSimpleName());
+		return LambdaExpression.doStringStuff(uc, "String1", "String2");
+	}
+
+	// old method
+	public String doSomethingold() {
+		int i=0;
+		{
+			UpperConcat uc = new UpperConcat() {
+
+				@Override
+				public String upperAndConcat(String s1, String s2) {
+					System.out.println("The anonymous class's name is : " + getClass().getSimpleName());
+					return s1.toUpperCase() + s2.toUpperCase();
+				}
+			};
+			System.out.println("The AnotherClass class's name is : " + getClass().getSimpleName());
+			i++;
+			System.out.println("i = "+i);
+			return LambdaExpression.doStringStuff(uc, "String1", "String2");
+		}
+	}
 }
