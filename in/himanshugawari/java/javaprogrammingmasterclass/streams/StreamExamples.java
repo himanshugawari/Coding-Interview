@@ -95,11 +95,17 @@ public class StreamExamples {
 		for (Entry<Integer, List<Employee>> s : groupedByAge.entrySet()) {
 			System.out.println(s.getKey() + " : " + s.getValue());
 		}
-		
+
 		System.out.println("\nYoungest Employee ");
 
 		departments.stream().flatMap(d -> d.getEmployees().stream())
 				.reduce((e1, e2) -> e1.getAge() < e2.getAge() ? e1 : e2).ifPresent(System.out::println);
+
+		System.out.println("\n------------");
+		Stream.of("ABC", "AC", "BAA", "CCCC", "XY", "ST").filter(s -> {
+			System.out.println(s);
+			return s.length() == 3;
+		}).count();
 	}
 }
 
