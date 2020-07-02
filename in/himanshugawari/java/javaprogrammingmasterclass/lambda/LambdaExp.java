@@ -3,8 +3,10 @@ package in.himanshugawari.java.javaprogrammingmasterclass.lambda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
+import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -126,6 +128,24 @@ public class LambdaExp {
 				System.out.println(getName(getLastName, employee));
 			}
 		}
+		System.out.println();
+
+		Function<Employee1, String> upperCase = employee -> employee.getName().toUpperCase();
+		Function<String, String> firstName1 = name -> name.substring(0, name.indexOf(' '));
+		Function<Employee1, String> chainedFunction = upperCase.andThen(firstName1);
+		System.out.println(chainedFunction.apply(employees.get(0)));
+		System.out.println();
+
+		BiFunction<String, Employee1, String> concatAge = (String name, Employee1 employee) -> {
+			return name.concat(" " + employee.getAge());
+		};
+		String upperName = upperCase.apply(employees.get(0));
+		System.out.println(concatAge.apply(upperName, employees.get(0)));
+		System.out.println();
+
+		IntUnaryOperator incrementBy5 = i -> i + 5;
+		System.out.println(incrementBy5.applyAsInt(10));
+		System.out.println();
 
 	}
 
