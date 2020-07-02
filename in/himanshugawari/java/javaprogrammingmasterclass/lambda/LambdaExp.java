@@ -3,6 +3,7 @@ package in.himanshugawari.java.javaprogrammingmasterclass.lambda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -95,7 +96,41 @@ public class LambdaExp {
 		for (int k = 0; k < 10; k++) {
 			System.out.println(randomSupplier.get());
 		}
+		System.out.println();
 
+		employees.forEach(employee -> {
+			String lastName = employee.getName().substring(employee.getName().indexOf(' ') + 1);
+			System.out.println("Last Name is : " + lastName);
+		});
+		System.out.println();
+
+		Function<Employee1, String> getLastName = (Employee1 employee) -> {
+			return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+		};
+		String lastName = getLastName.apply(employees.get(4));
+		System.out.println(lastName);
+		System.out.println();
+
+		Function<Employee1, String> getFirstName = (Employee1 employee) -> {
+			return employee.getName().substring(0, employee.getName().indexOf(' '));
+		};
+		String firstName = getFirstName.apply(employees.get(4));
+		System.out.println(firstName);
+		System.out.println();
+
+		Random random1 = new Random();
+		for (Employee1 employee : employees) {
+			if (random1.nextBoolean()) {
+				System.out.println(getName(getFirstName, employee));
+			} else {
+				System.out.println(getName(getLastName, employee));
+			}
+		}
+
+	}
+
+	private static String getName(Function<Employee1, String> getName, Employee1 employee) {
+		return getName.apply(employee);
 	}
 
 	private static void printEmployeesByAge(List<Employee1> employees, String ageText,
