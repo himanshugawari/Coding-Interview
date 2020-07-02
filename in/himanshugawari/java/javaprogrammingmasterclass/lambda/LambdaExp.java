@@ -2,7 +2,10 @@ package in.himanshugawari.java.javaprogrammingmasterclass.lambda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * @author himanshu
@@ -63,6 +66,36 @@ public class LambdaExp {
 		printEmployeesByAge(employees, "Employees over 30", employee -> employee.getAge() > 30);
 		System.out.println();
 		printEmployeesByAge(employees, "Employees 30 or below", employee -> employee.getAge() <= 30);
+		System.out.println();
+		printEmployeesByAge(employees, "Employees below 25", new Predicate<Employee1>() {
+			@Override
+			public boolean test(Employee1 employee) {
+				return employee.getAge() < 25;
+			}
+		});
+		System.out.println();
+
+		IntPredicate greaterThan15 = i -> i > 15;
+		IntPredicate lessThan100 = i -> i < 100;
+
+		System.out.println(greaterThan15.test(10));
+		int a = 20;
+		System.out.println(greaterThan15.test(a + 5));
+
+		System.out.println(greaterThan15.and(lessThan100).test(50));
+		System.out.println();
+
+		Random random = new Random();
+		for (int j = 0; j < 10; j++) {
+			System.out.println(random.nextInt(1000));
+		}
+		System.out.println();
+
+		Supplier<Integer> randomSupplier = () -> random.nextInt(1000);
+		for (int k = 0; k < 10; k++) {
+			System.out.println(randomSupplier.get());
+		}
+
 	}
 
 	private static void printEmployeesByAge(List<Employee1> employees, String ageText,
