@@ -39,7 +39,7 @@ public class VipCustomer {
 
 	@Override
 	public String toString() {
-		return "VipCustomer [ name=" + name + " email=" + email + " creditLimit=" + creditLimit + " ]";
+		return "VipCustomer [ name=" + name + ", email=" + email + ", creditLimit=" + creditLimit + " ]";
 
 	}
 
