@@ -1,5 +1,9 @@
 package in.himanshugawari.java.javaprogrammingmasterclass.constructor;
 
+/**
+ * @author himanshu
+ *
+ */
 public class Account {
 
 	private String number;
@@ -7,6 +11,22 @@ public class Account {
 	private String name;
 	private String email;
 	private String phoneNumber;
+
+	public Account() {
+		// super();
+		this("default", 0, "default", "default", "default");
+		System.out.println("Empty Constructor Called");
+	}
+
+	public Account(String number, double balance, String name, String email, String phoneNumber) {
+		super();
+		System.out.println("Parameterized Constructor Called");
+		this.number = number;
+		this.balance = balance;
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
 
 	public void deposit(double depositAmount) {
 		this.balance += depositAmount;
