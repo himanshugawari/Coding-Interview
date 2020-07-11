@@ -29,6 +29,7 @@ public class PolymorphismChallenge {
 	}
 }
 
+@SuppressWarnings("unused")
 class Car {
 	private int cylinders;
 	private boolean engine;
