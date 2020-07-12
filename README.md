@@ -132,5 +132,3 @@
 ![alt text](images/64.png)
 
 ![alt text](images/65.png)
-
-![alt text](images/43.png)
